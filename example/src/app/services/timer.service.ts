@@ -11,8 +11,8 @@ import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions/auto-sub
   destroy: 'onStop'
 })
 export class TimerService {
-  millisec = 0;
-  sec = 0;
+  millisec = '0000';
+  sec = '00';
   isOn: boolean;
   history = [];
 
@@ -20,21 +20,20 @@ export class TimerService {
   timer$ = interval(10)
     .pipe(
       tap((num) => {
-        this.millisec = num;
-        this.sec = parseInt( (`${this.millisec / 100}`));
+        this.millisec = `${num}`.padStart(4, '0');
+        this.sec = `${parseInt( (`${num / 100}`))}`.padStart(2, '0');
       })
     );
 
   onStart() {
     this.isOn = true;
-    console.log('Start timer')
   }
 
   onStop() {
     this.isOn = false;
     this.history = [...this.history, { date: new Date(), time: `${this.sec} : ${this.millisec}` }];
-    this.millisec = this.sec = 0;
-    console.log('Stop timer')
+    this.millisec = '0000';
+    this.sec = '00'
   }
 
   toggle() {

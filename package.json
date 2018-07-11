@@ -1,0 +1,23 @@
+{
+  "name": "ng-auto-subscriptions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/auth-subscriptions.js",
+  "typings": "dist/auth-subscriptions.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Yair Tawil",
+  "license": "MIT",
+  "dependencies": {
+    "rxjs": "^6.2.1"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "devDependencies": {
+    "typescript": "^2.9.2"
+  }
+}

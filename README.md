@@ -2,11 +2,9 @@
 
 **[Demo](https://yairtawil.github.io/auto-subscriptions/)**
 
-# Auto-Subscriptions
+# Auto Subscriptions
 
-Typescript library for manage automagically subscribe / Unsubscribe
-
-of observables properties on classes.
+Typescript library for automagically handling `subscribe()` / `unsubscribe()` of Observable properties of classes.
 
 ## Installation
 
@@ -16,7 +14,7 @@ npm install auto-subscriptions
 
 ## Usage
 
-Add `@AutoSubscriptions` to your class:
+Add `@AutoSubscriptions` to the class and `@AutoSubscription` to the class observable properties, for which you want automatic subscription handling:
 
 ```typescript
 import { AutoSubscriptions } from 'auto-subscriptions';
@@ -26,49 +24,30 @@ import { AutoSubscriptions } from 'auto-subscriptions';
   destroy: 'destroy'
 })
 export class MyClass {
-  init() {
-  }
-  destroy() {
-  }
-}
-```
-`init` is where the automatic `subsribe()` code will happen,
-
-`destroy` is where the automatic `unsubsribe()` code will happen,
-
-For example:
-
-```typescript
-  const myClass = new MyClass();
-  myClass.init() /* automatic `subsribe()` code will happen */
-  myClass.destroy() /* automatic `unsubsribe()` code will happen */
-  
-```
-After `myClass` is registed to automatic subsription mangement, 
-let's add new subscriptions by `AutoSubscription` property decorator:
-
-```typescript
-import { AutoSubscriptions, AutoSubscription } from 'auto-subscriptions';
-import { of } from 'rxjs';
-
-@AutoSubscriptions({
-  init: 'init',
-  destroy: 'destroy'
-})
-export class MyClass {
-
   @AutoSubscription
   myObs$ = of(true);
 
   @AutoSubscription
   myObsD$ = of(false);
   
-  constructor() {
+  init() {
   }
-  
-  someFunction() {
-  
+  destroy() {
   }
 }
 ```
+ when `init` is called `subscribe()` will be invoked for all `@AutoSubscription` observable properies,
 
+when `destroy` is called `unsubscribe()` will be invoked for all `@AutoSubscription` observable properies,
+
+For example:
+
+```typescript
+  const myClass = new MyClass();
+  myClass.init() /* subscribe() is invoked for all @AutoSubscription observable properies, */
+  
+  // code ...
+  
+  myClass.destroy() /* unsubscribe() is invoked for all @AutoSubscription observable properies */
+  
+```

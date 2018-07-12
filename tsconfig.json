@@ -12,6 +12,9 @@
       "es2017.object"
     ]
   },
+  "files": [
+    "public_api.ts"
+  ],
   "exclude": [
     "node_modules",
     "example"

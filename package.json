@@ -2,8 +2,8 @@
   "name": "auto-subscriptions",
   "version": "1.0.0",
   "description": "A typescript class and propery decorators to manager all subscriptions",
-  "main": "dist/auto-subscriptions.js",
-  "typings": "dist/auto-subscriptions.d.ts",
+  "main": "dist/public_api.js",
+  "typings": "dist/public_api.d.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
     "start:example": "npm run start --prefix example",
@@ -14,7 +14,7 @@
   "author": "Yair Tawil",
   "license": "MIT",
   "files": [
-    "dist/*"
+    "dist/**/*"
   ],
   "devDependencies": {
     "rimraf": "^2.6.2",

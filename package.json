@@ -1,6 +1,6 @@
 {
   "name": "auto-subscriptions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A typescript class and propery decorators to manager all subscriptions",
   "main": "dist/public_api.js",
   "typings": "dist/public_api.d.ts",

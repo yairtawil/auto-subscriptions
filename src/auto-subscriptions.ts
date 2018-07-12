@@ -1,14 +1,37 @@
+export type AutoSubscriptionsInput = string | ((...args) => any);
+export type AutoSubscriptionsDataInput = [string, ((...args) => any) | undefined];
+
 export interface AutoSubscriptionsMetaData {
-    init: string;
-    destroy: string;
+    init: AutoSubscriptionsInput;
+    destroy: AutoSubscriptionsInput;
 }
 
-export function AutoSubscriptions({ init, destroy }: AutoSubscriptionsMetaData) {
-    return function (constructor) {
-        const OnInit = constructor.prototype[init];
-        const OnDestroy = constructor.prototype[destroy];
+function _getDataViaInput(prototype: any, input: AutoSubscriptionsInput): AutoSubscriptionsDataInput | never {
+    switch (typeof input) {
+        case 'string': {
+            return [<string> input, prototype[<string> input]];
+        }
+        case 'function':
+            return Object.entries<(...args) => any>(prototype).find(([key, value]: [string, any]) => value === input);
 
-        constructor.prototype[init] = function () {
+        default:
+            new Error('Invalid input')
+    }
+}
+
+export function AutoSubscriptions({ init, destroy }: AutoSubscriptionsMetaData): any | never {
+    return function (constructor) {
+        const [initKey, originalInit] = _getDataViaInput(constructor.prototype, init);
+        if (!initKey) {
+            new Error('Illegal \"init\" input!');
+        }
+
+        const [destroyKey, originalDestroy] = _getDataViaInput(constructor.prototype, destroy);
+        if (!destroyKey) {
+            new Error('Illegal \"destroy\" input!');
+        }
+
+        constructor.prototype[initKey] = function (...args) {
             if (this._subscriptionsPropertyKeys_) {
                 this._subscriptionsList_ =
                     this._subscriptionsPropertyKeys_
@@ -18,18 +41,18 @@ export function AutoSubscriptions({ init, destroy }: AutoSubscriptionsMetaData) 
                         .filter((observable: { subscribe: any }) => typeof observable.subscribe === 'function')
                         .map((observable) => observable.subscribe());
             }
-
-            if (OnInit) {
-                return OnInit.bind(this)();
+            if (originalInit) {
+                return originalInit.bind(this)(...args);
             }
         };
 
-        constructor.prototype[destroy] = function () {
+        constructor.prototype[destroyKey] = function (...args) {
             this._subscriptionsList_
                 .filter((subscription: { unsubscribe: any }) => typeof subscription.unsubscribe === 'function')
                 .forEach((subscription: { unsubscribe: any }) => subscription.unsubscribe());
-            if (OnDestroy) {
-                return OnDestroy.bind(this)();
+
+            if (originalDestroy) {
+                return originalDestroy.bind(this)(...args);
             }
         };
     };

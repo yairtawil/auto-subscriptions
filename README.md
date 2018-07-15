@@ -25,10 +25,33 @@ import { AutoSubscriptions } from 'auto-subscriptions';
 })
 export class MyClass {
   @AutoSubscription
-  myObs$ = of(true);
+  myObs$: Observable<boolean> = of(true);
 
   @AutoSubscription
-  myObsD$ = of(false);
+  myObsD$: Observable<boolean> = of(false);
+  
+  init() {
+  }
+  destroy() {
+  }
+}
+```
+Another way:
+
+```typescript
+import { AutoSubscriptions } from 'auto-subscriptions';
+import { Observable, of } from 'rxjs';
+
+@AutoSubscriptions({
+  init: MyClassB.prototype.init,
+  destroy: MyClassB.prototype.destroy
+})
+export class MyClassB {
+  @AutoSubscription
+  myObs$: Observable<boolean> = of(true);
+
+  @AutoSubscription
+  myObsD$: Observable<boolean> = of(false);
   
   init() {
   }
@@ -51,3 +74,36 @@ For example:
   myClass.destroy() /* unsubscribe() is invoked for all @AutoSubscription observable properies */
   
 ```
+
+Angular components:
+
+```typescript
+import { Component } from '@angular/core';
+import { AutoSubscriptions } from 'auto-subscriptions';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Component({
+  selector: 'ansyn-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
+})
+@AutoSubscriptions({
+  init: 'ngOnInit',
+  destroy: 'ngOnDestroy'
+})
+export class AppComponent {
+  result: Object;
+  
+  @AutoSubscription
+  httpOnInit$: Observable<Object> = this.http.get('HTTP_URL').pipe(
+    tap((result: Object) => this.result = result)
+  );
+  
+  constructor(protected http: HttpClient) {
+  }
+  
+}
+
+```
+

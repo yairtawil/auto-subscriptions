@@ -84,7 +84,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'ansyn-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })

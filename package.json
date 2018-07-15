@@ -1,14 +1,21 @@
 {
   "name": "auto-subscriptions",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A typescript class and propery decorators to manager all subscriptions",
   "main": "dist/public_api.js",
   "typings": "dist/public_api.d.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "predeploy": "npm run build:dev && npm run build --prefix example -- --prod --base-href=https://yairtawil.github.io/auto-subscriptions/ --deploy-url=https://yairtawil.github.io/auto-subscriptions/",
+    "deploy": "gh-pages -d example/dist/example",
     "start:example": "npm run start --prefix example",
-    "build:dev": "tsc -p tsconfig.dev.json -w -listEmittedFiles",
+    "build:dev": "tsc -p tsconfig.dev.json -listEmittedFiles",
+    "build:dev:watch": "npm run build:dev -- -w",
     "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yairtawil/auto-subscriptions"
   },
   "keywords": [],
   "author": "Yair Tawil",
@@ -17,6 +24,7 @@
     "dist/**/*"
   ],
   "devDependencies": {
+    "gh-pages": "^1.2.0",
     "rimraf": "^2.6.2",
     "typescript": "^2.9.2"
   }

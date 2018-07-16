@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs/index';
-import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions/auto-subscriptions';
+import { fromEvent } from 'rxjs';
 import { filter, tap } from 'rxjs/internal/operators';
+import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions';
 
 @Component({
   selector: 'app-events',

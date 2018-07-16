@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "auto-subscriptions": ["auto-subscriptions"],
+      "auto-subscriptions": ["auto-subscriptions/public_api"],
       "auto-subscriptions/*": ["auto-subscriptions/*"]
     },
     "outDir": "./dist/out-tsc",

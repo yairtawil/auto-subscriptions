@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { tap } from 'rxjs/internal/operators';
-import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions/auto-subscriptions';
+import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions';
 
 @Injectable({
   providedIn: 'root'

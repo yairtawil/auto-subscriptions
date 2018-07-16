@@ -5,6 +5,8 @@
     "target": "es5",
     "declaration": true,
     "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": [
       "dom",
       "es5",

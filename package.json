@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "predeploy": "npm run build:dev && npm run build --prefix example -- --prod --base-href=https://yairtawil.github.io/auto-subscriptions/ --deploy-url=https://yairtawil.github.io/auto-subscriptions/",
-    "deploy": "gh-pages -d example/dist/example",
+    "deploy": "gh-pages -r https://$GITHUB_TOKEN@github.com/yairtawil/auto-subscriptions.git -d example/dist/example",
     "start:example": "npm run start --prefix example",
     "build:dev": "tsc -p tsconfig.dev.json -listEmittedFiles",
     "build:dev:watch": "npm run build:dev -- -w",

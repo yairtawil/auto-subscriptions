@@ -9,8 +9,8 @@ import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions';
   styleUrls: ['./events.component.css']
 })
 @AutoSubscriptions({
-  init: EventsComponent.prototype.ngOnInit,
-  destroy: EventsComponent.prototype.ngOnDestroy
+  init: 'ngOnInit',
+  destroy: 'ngOnDestroy'
 })
 export class EventsComponent implements OnInit, OnDestroy {
   counts = { click: 0, space: 0, mousemove: 0, mousewheel: 0 };

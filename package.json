@@ -12,7 +12,8 @@
     "build:dev": "tsc -p tsconfig.dev.json -listEmittedFiles",
     "build:dev:watch": "npm run build:dev -- -w",
     "prepublish": "npm run build",
-    "test": "jasmine-ts src/**/*.spec.ts"
+    "test": "jasmine-ts src/**/*.spec.ts",
+    "lint": "tslint src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "gh-pages": "^1.2.0",
     "jasmine-ts": "^0.2.1",
     "rimraf": "^2.6.2",
+    "tslint": "^5.14.0",
     "typescript": "^3.3.3333"
   }
 }

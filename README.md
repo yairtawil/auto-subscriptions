@@ -36,29 +36,6 @@ export class MyClass {
   }
 }
 ```
-Another way:
-
-```typescript
-import { AutoSubscriptions } from 'auto-subscriptions';
-import { Observable, of } from 'rxjs';
-
-@AutoSubscriptions({
-  init: MyClassB.prototype.init,
-  destroy: MyClassB.prototype.destroy
-})
-export class MyClassB {
-  @AutoSubscription
-  myObs$: Observable<boolean> = of(true);
-
-  @AutoSubscription
-  myObsD$: Observable<boolean> = of(false);
-  
-  init() {
-  }
-  destroy() {
-  }
-}
-```
  when `init` is called `subscribe()` will be invoked for all `@AutoSubscription` observable properies,
 
 when `destroy` is called `unsubscribe()` will be invoked for all `@AutoSubscription` observable properies,
@@ -78,7 +55,7 @@ For example:
 Angular components:
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AutoSubscriptions } from 'auto-subscriptions';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -92,7 +69,7 @@ import { tap } from 'rxjs/operators';
   init: 'ngOnInit',
   destroy: 'ngOnDestroy'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   result: Object;
   
   @AutoSubscription
@@ -103,6 +80,11 @@ export class AppComponent {
   constructor(protected http: HttpClient) {
   }
   
+  ngOnInit() {
+  }
+
+  ngOnDestroy() {
+  }
 }
 
 ```

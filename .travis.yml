@@ -8,6 +8,7 @@ before_install:
 
 install:
   - "npm install"
+  - "npm install --prefix example"
 
 # Init GUI
 before_script:

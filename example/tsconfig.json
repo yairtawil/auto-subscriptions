@@ -2,10 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "auto-subscriptions": ["auto-subscriptions/public_api"],
-      "auto-subscriptions/*": ["auto-subscriptions/*"]
-    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

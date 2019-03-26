@@ -12,7 +12,8 @@ export class NavbarComponent implements OnInit {
     return environment.githubLink;
   }
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

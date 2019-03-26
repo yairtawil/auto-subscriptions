@@ -15,4 +15,5 @@ import { MatBadgeModule, MatButtonModule, MatCardModule, MatTableModule, MatTool
   declarations: [TimerComponent],
   exports: [TimerComponent]
 })
-export class TimerModule { }
+export class TimerModule {
+}

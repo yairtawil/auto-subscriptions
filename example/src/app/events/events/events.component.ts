@@ -8,10 +8,7 @@ import { AutoSubscription, AutoSubscriptions } from 'auto-subscriptions';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })
-@AutoSubscriptions({
-  init: 'ngOnInit',
-  destroy: 'ngOnDestroy'
-})
+@AutoSubscriptions()
 export class EventsComponent implements OnInit, OnDestroy {
   counts = { click: 0, space: 0, mousemove: 0, mousewheel: 0 };
 
@@ -42,7 +39,8 @@ export class EventsComponent implements OnInit, OnDestroy {
       tap(($event: MouseEvent) => this.counts.mousewheel = this.counts.mousewheel + 1)
     );
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

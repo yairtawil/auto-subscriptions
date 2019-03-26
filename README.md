@@ -1,34 +1,48 @@
+# Auto Subscriptions
+
 [![NPM](https://nodei.co/npm/auto-subscriptions.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/auto-subscriptions/)
 
 **[Demo](https://yairtawil.github.io/auto-subscriptions/)**
 
-# Auto Subscriptions
-
 Typescript library for automagically handling `subscribe()` / `unsubscribe()` of Observable properties of classes.
 
-## Installation
-
+### Installation
+##### Install with `npm`
 ```shell
 npm install auto-subscriptions
 ```
+##### Install with `yarn`
+```shell
+yarn add auto-subscriptions
+```
 
-## Usage
+### Usage
 
 Add `@AutoSubscriptions` to the class and `@AutoSubscription` to the class observable properties, for which you want automatic subscription handling:
 
+##### Base class:
 ```typescript
 import { AutoSubscriptions } from 'auto-subscriptions';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @AutoSubscriptions({
   init: 'init',
   destroy: 'destroy'
 })
 export class MyClass {
+  boolValue: boolean;
+  numValue: number;
+  
   @AutoSubscription
-  myObs$: Observable<boolean> = of(true);
+  boolValue$: Observable<boolean> = of(true).pipe(
+    tap((boolValue: boolean) => this.boolValue = boolValue)
+  );
 
   @AutoSubscription
-  myObsD$: Observable<boolean> = of(false);
+  numValue$: Observable<number> = of(100).pipe(
+    tap((numValue: boolean) => this.numValue = numValue)
+  );
   
   init() {
   }
@@ -40,7 +54,7 @@ export class MyClass {
 
 when `destroy` is called `unsubscribe()` will be invoked for all `@AutoSubscription` observable properies,
 
-For example:
+##### For example:
 
 ```typescript
   const myClass = new MyClass();
@@ -52,11 +66,12 @@ For example:
   
 ```
 
-Angular components:
+##### Angular component (defaults are `ngOnInit` and `ngOnDestroy`):
 
 ```typescript
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AutoSubscriptions } from 'auto-subscriptions';
+import { HttpClient } from '@angular/common/http';
+import { AutoSubscriptions, AutoSubscription } from 'auto-subscriptions';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -65,16 +80,13 @@ import { tap } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-@AutoSubscriptions({
-  init: 'ngOnInit',
-  destroy: 'ngOnDestroy'
-})
+@AutoSubscriptions()
 export class AppComponent implements OnInit, OnDestroy {
-  result: Object;
+  httpResult: object;
   
   @AutoSubscription
-  httpOnInit$: Observable<Object> = this.http.get('HTTP_URL').pipe(
-    tap((result: Object) => this.result = result)
+  httpResult$: Observable<Object> = this.http.get('HTTP_URL').pipe(
+    tap((httpResult: object) => this.httpResult = httpResult)
   );
   
   constructor(protected http: HttpClient) {

@@ -9,7 +9,8 @@ before_install:
 install:
   - "npm install"
   - "npm run build"
-  - "npm install --prefix example"
+  - "npm cache clean -f"
+  - "cd ./example && npm install && cd .."
 
 # Init GUI
 before_script:

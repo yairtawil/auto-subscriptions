@@ -1,4 +1,4 @@
-# Auto Subscriptions
+## Auto Subscriptions
 
 [![NPM](https://nodei.co/npm/auto-subscriptions.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/auto-subscriptions/)
 
